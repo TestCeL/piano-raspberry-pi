@@ -10,7 +10,9 @@ Convierte una **Raspberry Pi 3** en un **piano digital autónomo**:
 
 Creado por **Reinaldo Johnson Espinoza**, con la ayuda de **Claude** (Anthropic). Créditos completos: [CREDITOS.md](CREDITOS.md).
 
-<!-- Captura de pantalla: pendiente -->
+![El piano en el monitor: teclado dibujado, estado, sonido, entradas MIDI y controles](docs/img/piano-interfaz.jpg)
+
+![Pantalla de inicio estilo DOS mientras carga](docs/img/piano-pantalla-inicio.jpg)
 
 ## Qué incluye
 

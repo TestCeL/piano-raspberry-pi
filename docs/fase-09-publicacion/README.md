@@ -198,12 +198,12 @@ Tras las fases 10 y 11 y con todo probado («al final final»), el usuario aprob
 
 **Desde la Pi**, siguiendo el README: `git clone` correcto (con los permisos de ejecución), la descarga de la Release verificada y `instalar.sh --comprobar` sin errores.
 
-**Hallazgo tras publicar:** al cerrar esta documentación apareció en la sección de la SD nueva el **nombre de la red Wi-Fi del usuario** y su zona horaria. Ya estaban en el commit publicado: la revisión anterior buscó contraseñas y correos, pero no nombres de red. Se reemplazaron por texto genérico.
+**Revisión tras publicar:** apareció un dato personal del usuario en esta documentación. Se quitó y, con su «sí», se reemplazó el commit publicado; la etiqueta `v1.0` y la Release se conservaron, y se verificaron desde fuera. **Lección:** la revisión previa debe buscar todo tipo de datos personales, no solo contraseñas y correos. Las fotos, además, llevan metadatos (ubicación GPS) que hay que quitar.
 
 ## Pendientes
 
 - [ ] Comprobar si sfizz se puede compilar en la propia Pi 3 (1 GB de RAM); la vía principal es el programa compilado (decisión 3).
-- [ ] Foto o captura de la pantalla para el README (mejor una foto del monitor, que el usuario tiene a mano).
+- [x] Fotos del monitor para el README, hechas por el usuario: la interfaz y la pantalla de inicio. Traían la **ubicación GPS** y otros metadatos del teléfono, más una segunda imagen escondida (HDR). Se redibujaron en imágenes nuevas de 1600 px, sin ningún metadato, y se verificó byte a byte (solo la cabecera JFIF; sin EXIF, GPS, XMP ni MPF). Están en `docs/img/`.
 - [x] Correo privado exacto de GitHub del usuario (Settings → Emails): `84028549+TestCeL@users.noreply.github.com`. Configurado como identidad local del repositorio el 2026-10-20, antes del primer commit; la configuración global del PC no se tocó.
 
 ## Checklist
@@ -212,7 +212,7 @@ Tras las fases 10 y 11 y con todo probado («al final final»), el usuario aprob
 - [x] Arranque automático movido a la fase 11 en la documentación de las fases 05–08
 - [x] Datos personales fuera (configurables) y revisados
 - [x] `dist/` fuera; repositorio git con `.gitignore` y `.gitattributes`
-- [x] README (español e inglés), con cifras medidas y comandos comprobados (falta la foto)
+- [x] README (español e inglés), con cifras medidas, comandos comprobados y fotos
 - [x] `LICENSE` (MIT) y créditos (español e inglés), generados y con pruebas (`test_generar_creditos.py`, en el validador)
 - [x] Créditos al pie del menú F9, con pruebas
 - [x] sfizz compilado + avisos de licencia, empaquetado y probado en la Pi
@@ -225,4 +225,4 @@ Tras las fases 10 y 11 y con todo probado («al final final»), el usuario aprob
 - [x] Instalación desde cero probada siguiendo solo el README (ver arriba) y, ya publicado, el clon y la descarga de la Release desde la Pi
 - [x] Validación completa en la Pi: 24/24 (fase 11)
 - [x] Publicación en GitHub: https://github.com/TestCeL/piano-raspberry-pi, con la Release v1.0 (2026-10-20)
-- [ ] Quitar del historial público el nombre de la red Wi-Fi (decisión del usuario pendiente)
+- [x] Revisión tras publicar: un dato personal quitado y el commit publicado reemplazado (con el «sí» del usuario). Verificado desde fuera: un solo commit con el correo noreply, la Release con sus adjuntos y la descarga con el SHA-256 original

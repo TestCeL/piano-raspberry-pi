@@ -10,7 +10,9 @@ Turns a **Raspberry Pi 3** into a **standalone digital piano**:
 
 Created by **Reinaldo Johnson Espinoza**, with the help of **Claude** (Anthropic). Full credits: [CREDITS.md](CREDITS.md).
 
-<!-- Screenshot: pending -->
+![The piano on the monitor: drawn keyboard, status, sound, MIDI inputs and controls](docs/img/piano-interfaz.jpg)
+
+![DOS-style start screen while loading](docs/img/piano-pantalla-inicio.jpg)
 
 ## What it includes
 
