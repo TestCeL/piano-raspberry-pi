@@ -1,0 +1,67 @@
+--- a/clients/jack_client.cpp
++++ b/clients/jack_client.cpp
+@@ -37,6 +37,7 @@
+ #include <jack/types.h>
+ #include <ostream>
+ #include <signal.h>
++#include <cstdlib>
+ #include <string_view>
+ #include <chrono>
+ #include <thread>
+@@ -259,6 +260,28 @@
+             } catch (...) {
+                 std::cout << "ERROR: Can't set num of voices!\n";
+             }
++        } else if (kw == "set_volume") {
++            try {
++                std::lock_guard<SpinMutex> lock { processMutex };
++                synth.setVolume(std::stof(args));
++                std::cout << "Volume set: " << synth.getVolume() << " dB\n";
++            } catch (...) {
++                std::cout << "ERROR: Can't set volume!\n";
++            }
++        } else if (kw == "set_cc") {
++            try {
++                if (tokens.size() != 2)
++                    throw std::invalid_argument("set_cc");
++                const int number = std::stoi(tokens[0]);
++                const int value = std::stoi(tokens[1]);
++                if (number < 0 || number > 127 || value < 0 || value > 127)
++                    throw std::out_of_range("set_cc");
++                std::lock_guard<SpinMutex> lock { processMutex };
++                synth.cc(0, number, value);
++                std::cout << "CC set: " << number << " = " << value << "\n";
++            } catch (...) {
++                std::cout << "ERROR: Can't set CC!\n";
++            }
+         } else if (kw == "quit") {
+             shouldClose = true;
+         } else if (kw.size() > 0) {
+@@ -273,6 +296,7 @@
+ ABSL_FLAG(uint32_t, num_voices, 32, "Num of voices");
+ ABSL_FLAG(bool, jack_autoconnect, false, "Autoconnect audio output");
+ ABSL_FLAG(bool, state, false, "Output the synth state in the jack loop");
++ABSL_FLAG(int32_t, sample_quality, 2, "Live sample quality (0-10; 1 = linear interpolation, 2 = sfizz default)");
+ 
+ int main(int argc, char** argv)
+ {
+@@ -329,6 +353,8 @@
+ 
+     synth.setSamplesPerBlock(jack_get_buffer_size(client));
+     synth.setSampleRate(jack_get_sample_rate(client));
++    synth.setSampleQuality(sfz::Sfizz::ProcessLive, absl::GetFlag(FLAGS_sample_quality));
++    std::cout << "Sample quality (live): " << synth.getSampleQuality(sfz::Sfizz::ProcessLive) << "\n";
+ 
+     jack_set_sample_rate_callback(client, sampleRateChanged, &synth);
+     jack_set_buffer_size_callback(client, sampleBlockChanged, &synth);
+@@ -393,6 +419,8 @@
+ 
+     std::cout << "Closing..." << '\n';
+     jack_client_close(client);
+-    cli_thread.join();
+-    return 0;
++    // The CLI thread may be blocked forever reading stdin: a FIFO opened read-write never reports EOF.
++    // Do not wait for it; std::_Exit also skips static destructors, so it never sees a destroyed synth.
++    std::cout << std::flush;
++    std::_Exit(0);
+ }

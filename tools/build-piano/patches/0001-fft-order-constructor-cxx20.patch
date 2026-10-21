@@ -1,0 +1,13 @@
+diff --git a/plugin/Source/fft.h b/plugin/Source/fft.h
+index 4195a6e..0c6ea7f 100644
+--- a/plugin/Source/fft.h
++++ b/plugin/Source/fft.h
+@@ -812,7 +812,7 @@ public:
+ template<int N>
+ class fft_order {
+ public:
+-    fft_order<N>() {
++    fft_order() {
+         for(int k=0;k<N;k++) {
+             int kr = fft_order_<N>::iterate(k);
+             order[kr] = k;

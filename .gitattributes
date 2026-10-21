@@ -1,0 +1,5 @@
+# Todo el texto con finales de línea LF, también al clonar en Windows: los scripts se ejecutan en la Raspberry Pi
+# (bash y Python no aceptan CRLF en la primera línea ni en heredocs).
+* text=auto eol=lf
+*.png binary
+*.jpg binary

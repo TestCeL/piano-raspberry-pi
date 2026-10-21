@@ -1,0 +1,7 @@
+#!/bin/sh
+# Comando corto del piano (se instala en /usr/local/bin/piano de la Raspberry).
+# Abre el piano (el último instrumento elegido; F6/F7 lo cambian) y la interfaz; se toca con el teclado
+# conectado a la Pi. ESC para salir.
+# -p: CPU en "performance" solo durante la sesión (evita clics); se restaura al salir.
+# Opciones extra se pasan tal cual (p. ej. "piano -q 256" para menos latencia).
+exec "$HOME/piano/tools/piano-teclado.sh" -p "$@"

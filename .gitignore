@@ -1,0 +1,17 @@
+# Compilaciones, grabaciones y registros de trabajo (no se publican; sfizz compilado va en las Releases de GitHub)
+dist/
+*.log
+__pycache__/
+*.pyc
+
+# Muestras de sonido y archivos descargados: NUNCA en el repositorio. Cada usuario las descarga de su fuente
+# original (tools/pi/descargar-instrumentos.sh; el Softify, a mano desde Pianobook) y las usa bajo su licencia.
+*.wav
+*.flac
+*.ogg
+*.zip
+*.7z
+*.tar
+*.tar.gz
+*.tar.xz
+*.part
